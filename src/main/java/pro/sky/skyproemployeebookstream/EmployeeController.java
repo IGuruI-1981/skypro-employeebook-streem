@@ -30,7 +30,7 @@ public class EmployeeController {
                               @RequestParam("passport") String passport,
                               @RequestParam("departament") int departament,
                               @RequestParam("salary") double salary) {
-        return "Employee added"+ employeeService.addEmployee(firstName, lastName, passport, departament, salary);
+        return "Added - "+ employeeService.addEmployee(firstName, lastName, passport, departament, salary);
     }
 
     @GetMapping(path = "/remove")                                      // удаление сотрудника
@@ -39,13 +39,13 @@ public class EmployeeController {
                                  @RequestParam("passport") String passport,
                                  @RequestParam("departament") int departament,
                                  @RequestParam("salary") double salary){
-        return "Employee deleted" + employeeService.removeEmployee(firstName, lastName, passport,departament,salary);
+        return "Deleted - " + employeeService.removeEmployee(firstName, lastName, passport,departament,salary);
     }
 
     @GetMapping(path = "/find")                                      // поиск  сотрудника
     public String findEmployee(@RequestParam("firstName") String firstName,
                                @RequestParam("lastName") String lastName,
                                @RequestParam("passport") String passport) {
-        return "Employee find" + employeeService.findEmployee(firstName,lastName,passport).toString();
+        return "Find - " + employeeService.findEmployee(firstName,lastName,passport).toString();
     }
 }
