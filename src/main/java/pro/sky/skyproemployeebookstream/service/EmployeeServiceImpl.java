@@ -29,7 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public String hello() {
-        return "HelloSkyPRO";
+        return "HelloSkyPRO!";
     }
 
     public List<Employee> allEmployee() {
