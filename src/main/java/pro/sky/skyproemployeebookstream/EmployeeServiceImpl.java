@@ -3,57 +3,70 @@ package pro.sky.skyproemployeebookstream;
 import org.springframework.stereotype.Service;
 import pro.sky.skyproemployeebookstream.exception.EmployeeAlreadyAddedException;
 import pro.sky.skyproemployeebookstream.exception.EmployeeNotFoundException;
+import pro.sky.skyproemployeebookstream.exception.EmployeeStorageIsFullException;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    Map<String, Employee> employees = new HashMap<>(Map.of(
-            "12334", new Employee("Иванов", "Виктор", "12334"),
-            "23532", new Employee("Иванова", "Евгения", "23532"),
-            "23452", new Employee("Васильев", "Илья", "23452")));
+    List<Employee> employees = new ArrayList<>(List.of(
+            new Employee("Иванов", "Виктор", "12334", 5, 54700),
+            new Employee("Иванова", "Евгения", "23532", 2, 98650),
+            new Employee("Васильев", "Илья", "23452", 1, 78690),
+            new Employee("Козлова", "Вероника", "78654", 3, 54785.45),
+            new Employee("Педалькина", "Фёкла", "37064", 3, 33465.62),
+            new Employee("Петорв", "Иван", "52312", 4, 124643.65),
+            new Employee("Панов", "Василий", "32215", 2, 43215.65),
+            new Employee("Коновалова", "Елена", "43245", 3, 76543.65),
+            new Employee("Ющенко", "Юрий", "53215", 3, 53385.65),
+            new Employee("Герасимов", "Иван", "58345", 4, 34785.65)));
 
     public String hello() {
         return "HelloSkyPRO";
     }
 
-    public String allEmployee() {
-        return employees.toString();
+    public List<Employee> allEmployee() {
+        return employees;
     }
 
     @Override
-    public String addEmployee(String firstName, String lastName, String passport) {
-        Employee employee = new Employee(firstName, lastName, passport);
-        final Employee empl = employees.get(passport);
-        if (empl == null) {
-            employees.put(passport, employee);
-            return employees.get(passport).toString();
-        }
-        else {
-            throw new EmployeeAlreadyAddedException("Такой сотрудник уже есть ");
+    public String addEmployee(String firstName, String lastName, String passport, int departament, double salary) {
+        final Employee employeeAdded = new Employee(firstName, lastName, passport, departament, salary);
+        final List<Employee> findEmpl= (List<Employee>) employees.stream()
+                .filter(e -> e.getFirstName().equals(firstName) && e.getLastName().equals(lastName) && e.getPassport().equals(passport))
+                .collect(Collectors.toList());
+        if (findEmpl.isEmpty()) {
+            employees.add(employeeAdded);
+            return employeeAdded.toString();
+        } else {
+            throw new EmployeeAlreadyAddedException("Такой сотрудник существует ");
         }
     }
 
     @Override
-    public String removeEmployee(String firstName, String lastName, String passport) {
-        //Employee employee = new Employee(firstName, lastName, passport);
-        final Employee empl = employees.get(passport);
-        if (empl == null) {
-            throw new EmployeeNotFoundException("Сотрудник не найден");
+    public String removeEmployee(String firstName, String lastName, String passport, int departament, double salary) {
+        final Employee employeeRem = new Employee(firstName, lastName, passport, departament, salary);
+        final List<Employee> findEmpl= (List<Employee>) employees.stream()
+                .filter(e -> e.getFirstName().equals(firstName) && e.getLastName().equals(lastName) && e.getPassport().equals(passport))
+                .collect(Collectors.toList());
+        if (findEmpl.isEmpty()) {
+            throw new EmployeeAlreadyAddedException("Cотрудник не найден");
+        } else {
+            employees.remove(employeeRem);
+            return employeeRem.toString();
         }
-        employees.remove(passport);
-        return empl.toString();
     }
 
 
     @Override
-    public String findEmployee(String firstName, String lastName, String passport) {
-        // Employee employee = new Employee(firstName, lastName, passport);
-        final Employee empl = employees.get(passport);
-        if (empl == null) {
-            throw new EmployeeNotFoundException("Сотрудник не найден");
-        }
-        return empl.toString();
+    public Employee findEmployee(String firstName, String lastName, String passport) {
+        return employees.stream()
+                .filter(e -> e.getFirstName().equals(firstName) && e.getLastName().equals(lastName) && e.getPassport().equals(passport))
+                .findAny()
+                .orElseThrow(() -> new EmployeeNotFoundException("Сотрудник не найден"));
+
     }
 }

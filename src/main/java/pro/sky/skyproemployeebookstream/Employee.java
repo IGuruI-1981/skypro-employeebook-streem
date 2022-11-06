@@ -62,6 +62,8 @@ public class Employee {
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", passport='" + passport + '\'' +
+                ", departament=" + departament +
+                ", salary=" + salary +
                 '}';
     }
 }
