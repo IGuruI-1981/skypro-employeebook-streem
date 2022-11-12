@@ -11,6 +11,11 @@ import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
+    private final ValidatorService validatorService;
+
+    public EmployeeServiceImpl(ValidatorService validatorService) {
+        this.validatorService = validatorService;
+    }
     List<Employee> employees = new ArrayList<>(List.of(
             new Employee("Иванов", "Виктор", "12334", 5, 54700),
             new Employee("Иванова", "Евгения", "23532", 2, 98650),
@@ -22,15 +27,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             new Employee("Коновалова", "Елена", "43245", 3, 76543.65),
             new Employee("Ющенко", "Юрий", "53215", 3, 53385.65),
             new Employee("Герасимов", "Иван", "58345", 4, 34785.65)));
-    private final ValidatorService validatorService;
 
-    public EmployeeServiceImpl(ValidatorService validatorService) {
-        this.validatorService = validatorService;
-    }
-
-    public String hello() {
-        return "HelloSkyPRO";
-    }
 
     public List<Employee> allEmployee() {
         return employees;
