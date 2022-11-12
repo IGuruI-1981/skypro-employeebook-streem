@@ -1,12 +1,11 @@
-package pro.sky.skyproemployeebookstream;
+package pro.sky.skyproemployeebookstream.service;
 
 import org.springframework.stereotype.Service;
+import pro.sky.skyproemployeebookstream.Employee;
 import pro.sky.skyproemployeebookstream.exception.EmployeeAlreadyAddedException;
 import pro.sky.skyproemployeebookstream.exception.EmployeeNotFoundException;
-import pro.sky.skyproemployeebookstream.exception.EmployeeStorageIsFullException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +22,11 @@ public class EmployeeServiceImpl implements EmployeeService {
             new Employee("Коновалова", "Елена", "43245", 3, 76543.65),
             new Employee("Ющенко", "Юрий", "53215", 3, 53385.65),
             new Employee("Герасимов", "Иван", "58345", 4, 34785.65)));
+    private final ValidatorService validatorService;
+
+    public EmployeeServiceImpl(ValidatorService validatorService) {
+        this.validatorService = validatorService;
+    }
 
     public String hello() {
         return "HelloSkyPRO";
@@ -34,7 +38,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public String addEmployee(String firstName, String lastName, String passport, int departament, double salary) {
-        final Employee employeeAdded = new Employee(firstName, lastName, passport, departament, salary);
+        final Employee employeeAdded = new Employee(validatorService.validateFirstName(firstName), validatorService.validateLastName(lastName), passport, departament, salary);
         final List<Employee> findEmpl= (List<Employee>) employees.stream()
                 .filter(e -> e.getFirstName().equals(firstName) && e.getLastName().equals(lastName) && e.getPassport().equals(passport))
                 .collect(Collectors.toList());
@@ -48,7 +52,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public String removeEmployee(String firstName, String lastName, String passport, int departament, double salary) {
-        final Employee employeeRem = new Employee(firstName, lastName, passport, departament, salary);
+        final Employee employeeRem = new Employee(validatorService.validateFirstName(firstName), validatorService.validateLastName(lastName), passport, departament, salary);
         final List<Employee> findEmpl= (List<Employee>) employees.stream()
                 .filter(e -> e.getFirstName().equals(firstName) && e.getLastName().equals(lastName) && e.getPassport().equals(passport))
                 .collect(Collectors.toList());

@@ -1,6 +1,7 @@
-package pro.sky.skyproemployeebookstream;
+package pro.sky.skyproemployeebookstream.service;
 
 import org.springframework.stereotype.Service;
+import pro.sky.skyproemployeebookstream.Employee;
 import pro.sky.skyproemployeebookstream.exception.EmployeeNotFoundException;
 
 import java.util.Comparator;
