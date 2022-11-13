@@ -112,9 +112,9 @@ public class DepServiceTest {
                 Arguments.of(1, List.of(new Employee("Васильев", "Илья", "23452", 1, 78690))),
                 Arguments.of(2, List.of(new Employee("Иванова", "Евгения", "23532", 2, 98650), new Employee("Панов", "Василий", "32215", 2, 43215.65))),
                 Arguments.of(3, List.of(new Employee("Козлова", "Вероника", "78654", 3, 54785.45), new Employee("Педалькина", "Фёкла", "37064", 3, 33465.62), new Employee("Коновалова", "Елена", "43245", 3, 76543.65), new Employee("Ющенко", "Юрий", "53215", 3, 53385.65)), Arguments.of(4, List.of(new Employee("Петорв", "Иван", "52312", 4, 124643.65), new Employee("Герасимов", "Иван", "58345", 4, 34785.65))),
-                        Arguments.of(4, List.of(new Employee("Петорв", "Иван", "52312", 4, 124643.65), new Employee("Герасимов", "Иван", "58345", 4, 34785.65))),
-                        Arguments.of(5, List.of(new Employee("Иванов", "Виктор", "12334", 5, 54700)),
-                                Arguments.of(6, Collections.emptyList()))));
+                Arguments.of(4, List.of(new Employee("Петорв", "Иван", "52312", 4, 124643.65), new Employee("Герасимов", "Иван", "58345", 4, 34785.65))),
+                Arguments.of(5, List.of(new Employee("Иванов", "Виктор", "12334", 5, 54700)),
+                Arguments.of(6, Collections.emptyList()))));
     }
 
 
