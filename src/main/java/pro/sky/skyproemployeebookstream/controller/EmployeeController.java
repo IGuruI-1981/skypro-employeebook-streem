@@ -15,11 +15,6 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping(path = "/hello")
-    public String hello() {
-        return employeeService.hello();
-    }
-
     @GetMapping(path = "/allEmployee")                                         //все сотрудники
     public String allEmployee() {
         return employeeService.allEmployee().toString();
@@ -37,10 +32,8 @@ public class EmployeeController {
     @GetMapping(path = "/remove")                                      // удаление сотрудника
     public String removeEmployee(@RequestParam("firstName") String firstName,
                                  @RequestParam("lastName") String lastName,
-                                 @RequestParam("passport") String passport,
-                                 @RequestParam("departament") int departament,
-                                 @RequestParam("salary") double salary){
-        return "Deleted - " + employeeService.removeEmployee(firstName, lastName, passport,departament,salary);
+                                 @RequestParam("passport") String passport){
+        return "Deleted - " + employeeService.removeEmployee(firstName, lastName, passport).toString();
     }
 
     @GetMapping(path = "/find")                                      // поиск  сотрудника
