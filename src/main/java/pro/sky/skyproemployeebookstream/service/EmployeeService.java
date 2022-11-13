@@ -8,6 +8,6 @@ public interface EmployeeService {
 
     List<Employee> allEmployee();
     String addEmployee(String firstName, String lastName, String passport, int departament, double salary);
-    String removeEmployee(String firstName, String lastName, String passport,int departament, double salary);
+    Employee removeEmployee(String firstName, String lastName, String passport);
     Employee findEmployee(String firstName, String lastName, String passport);
 }

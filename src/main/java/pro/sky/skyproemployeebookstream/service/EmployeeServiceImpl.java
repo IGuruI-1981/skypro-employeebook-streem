@@ -30,7 +30,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     public List<Employee> allEmployee() {
-        return employees;
+        return new ArrayList<>(employees);
     }
 
     @Override
@@ -48,17 +48,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public String removeEmployee(String firstName, String lastName, String passport, int departament, double salary) {
-        final Employee employeeRem = new Employee(validatorService.validateFirstName(firstName), validatorService.validateLastName(lastName), passport, departament, salary);
-        final List<Employee> findEmpl= (List<Employee>) employees.stream()
+    public Employee removeEmployee(String firstName, String lastName, String passport) {
+        Employee employee = (Employee) employees.stream()
                 .filter(e -> e.getFirstName().equals(firstName) && e.getLastName().equals(lastName) && e.getPassport().equals(passport))
-                .collect(Collectors.toList());
-        if (findEmpl.isEmpty()) {
-            throw new EmployeeAlreadyAddedException("Cотрудник не найден");
-        } else {
-            employees.remove(employeeRem);
-            return employeeRem.toString();
-        }
+                .findFirst()
+                .orElseThrow(() ->new EmployeeNotFoundException("Cотрудник не найден"));
+
+            employees.remove(employee);
+            return employee;
+
     }
 
 
