@@ -45,9 +45,7 @@ public class EmployeeServiceTest {
                 .isThrownBy(() -> employeeService.addEmployee(firstName, lastName, passport, departament, salary));
     }
 
-    @ParameterizedTest
-    @MethodSource("params")
-    @Disabled
+    @Test
     public void addEmployeeNegativTest2() {
         assertThatExceptionOfType(IncorrectNameOfEmployee.class)
                 .isThrownBy(()-> employeeService.addEmployee("Иванов2", "Виктор", "12334", 5, 54700));
@@ -56,7 +54,7 @@ public class EmployeeServiceTest {
                 .isThrownBy(()-> employeeService.addEmployee("Петорв", "#Иван", "52312", 4, 124643.65));
 
         assertThatExceptionOfType(IncorrectNameOfEmployee.class)
-                .isThrownBy(()-> employeeService.addEmployee("Васильев", null, "23452", 1, 78690));
+                .isThrownBy(()-> employeeService.addEmployee(null,"Василий" , "23452", 1, 78690));
     }
 
     @ParameterizedTest
